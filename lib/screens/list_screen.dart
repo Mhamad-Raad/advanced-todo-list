@@ -37,6 +37,8 @@ class _ListScreenState extends State<ListScreen> {
         for (var i = 0; i < noteList.length; i++) {
           noteList[i].getTitle();
           noteList[i].getContent();
+          noteList.length;
+          noteList;
         }
       });
     });
@@ -61,11 +63,12 @@ class _ListScreenState extends State<ListScreen> {
         ],
       ),
       body: ListView.separated(
-        itemCount: noteList.length,
         separatorBuilder: (context, index) => Divider(
           color: Colors.blueGrey,
         ),
+        itemCount: noteList.length,
         itemBuilder: (context, index) => ListTile(
+          key: UniqueKey(),
           trailing: shows[index]
               ? SizedBox(
                   width: 110.0,
@@ -78,7 +81,8 @@ class _ListScreenState extends State<ListScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => NoteScreen(true, index),
+                              builder: (context) =>
+                                  NoteScreen(true, index, false),
                             ),
                           );
                         },
@@ -105,7 +109,7 @@ class _ListScreenState extends State<ListScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => NoteScreen(false, index)));
+                    builder: (context) => NoteScreen(false, index, false)));
           },
           onLongPress: () {
             setState(() {
@@ -133,10 +137,7 @@ class _ListScreenState extends State<ListScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NoteScreen(
-                    true,
-                    0,
-                  ),
+                  builder: (context) => NoteScreen(true, 0, true),
                 ),
               );
             },

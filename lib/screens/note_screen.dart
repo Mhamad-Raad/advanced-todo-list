@@ -4,14 +4,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:midterm/models/mock_data.dart';
+import 'package:midterm/models/note.dart';
+
+import 'list_screen.dart';
 
 // import '../models/note.dart';
 
 class NoteScreen extends StatelessWidget {
-  bool editable;
+  bool editable, add;
   int index;
 
-  NoteScreen(this.editable, this.index);
+  NoteScreen(this.editable, this.index, this.add);
 
   Widget build(BuildContext context) {
     String tempTitle = noteList[index].title,
@@ -28,10 +31,20 @@ class NoteScreen extends StatelessWidget {
                 size: 30,
               ),
               onPressed: () {
-                noteList[index].setTitle(tempTitle);
-                noteList[index].setContent(tempContent);
-                print(noteList[index].title);
-                Navigator.pop(context);
+                if (add) {
+                  noteList.add(Note(tempTitle, tempContent));
+                  print(noteList.length);
+                } else {
+                  noteList[index].setTitle(tempTitle);
+                  noteList[index].setContent(tempContent);
+                }
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListScreen(),
+                  ),
+                );
               }),
           IconButton(
               icon: Icon(
@@ -48,7 +61,7 @@ class NoteScreen extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              initialValue: noteList[index].title,
+              initialValue: add ? "" : noteList[index].title,
               enabled: editable,
               decoration: InputDecoration(
                 hintText: 'Type the title here',
@@ -63,7 +76,7 @@ class NoteScreen extends StatelessWidget {
             Expanded(
               child: TextFormField(
                 enabled: editable,
-                initialValue: noteList[index].content,
+                initialValue: add ? "" : noteList[index].content,
                 maxLines: null,
                 expands: true,
                 decoration: InputDecoration(
