@@ -2,7 +2,12 @@
 
 import 'note.dart';
 
-final noteList = <Note>[];
+final noteList = <Note>[
+  Note("tite 1", "content 1"),
+  Note("tite 2", "content 2"),
+  Note("tite 3", "content 3"),
+  Note("tite 4", "content 4")
+];
 
 //? Here are some sample data that you can copy-paste in order to create the mock database
 //? --------------------------------------------------------------------------------------
