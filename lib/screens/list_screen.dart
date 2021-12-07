@@ -13,6 +13,7 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
+  bool hide = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class _ListScreenState extends State<ListScreen> {
             ),
           ),
           title: Text('Note title'),
-          subtitle: Text('Note content'),
+          subtitle: hide ? Text("") : Text('Note content'),
           onTap: () {},
           onLongPress: () {},
         ),
@@ -66,9 +67,13 @@ class _ListScreenState extends State<ListScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-              child: Icon(Icons.unfold_less),
+              child: hide ? Icon(Icons.list) : Icon(Icons.unfold_less),
               tooltip: 'Show less. Hide notes content',
-              onPressed: () {}),
+              onPressed: () {
+                setState(() {
+                  hide = !hide;
+                });
+              }),
           FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: 'Add a new note',
