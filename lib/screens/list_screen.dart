@@ -3,6 +3,7 @@
 //? You can refactor the code if needed
 
 import 'package:flutter/material.dart';
+import 'package:midterm/models/mock_data.dart';
 
 // import 'note_screen.dart';
 // import '../models/note.dart';
@@ -34,7 +35,7 @@ class _ListScreenState extends State<ListScreen> {
         ],
       ),
       body: ListView.separated(
-        itemCount: 4,
+        itemCount: noteList.length,
         separatorBuilder: (context, index) => Divider(
           color: Colors.blueGrey,
         ),
@@ -60,8 +61,8 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 )
               : SizedBox(),
-          title: Text('Note title'),
-          subtitle: hide ? Text("") : Text('Note content'),
+          title: Text(noteList[index].getTitle()),
+          subtitle: hide ? Text("") : Text(noteList[index].getContent()),
           onTap: () {},
           onLongPress: () {
             setState(() {

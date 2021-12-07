@@ -8,4 +8,12 @@ class Note {
     title = t;
     content = c;
   }
+
+  String getTitle() {
+    return title;
+  }
+
+  String getContent() {
+    return content;
+  }
 }
