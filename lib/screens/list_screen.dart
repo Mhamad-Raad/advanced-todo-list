@@ -2,6 +2,8 @@
 //! Parts of the code have been given. Complete the remaining.
 //? You can refactor the code if needed
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:midterm/models/mock_data.dart';
 
@@ -19,6 +21,27 @@ class _ListScreenState extends State<ListScreen> {
   bool hide = false;
   List<bool> shows = [false, false, false, false];
 
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var i = 0; i < noteList.length; i++) {
+      noteList[i].getTitle();
+      noteList[i].getContent();
+    }
+
+    // ignore: unnecessary_new
+    Timer timer =
+        new Timer.periodic(new Duration(seconds: 2), (Timer timer) async {
+      // ignore: unnecessary_this
+      this.setState(() {
+        for (var i = 0; i < noteList.length; i++) {
+          noteList[i].getTitle();
+          noteList[i].getContent();
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +51,7 @@ class _ListScreenState extends State<ListScreen> {
           CircleAvatar(
             backgroundColor: Colors.blue.shade200,
             child: Text(
-              '4',
+              noteList.length.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
             ),
           ),
@@ -53,10 +76,11 @@ class _ListScreenState extends State<ListScreen> {
                         icon: Icon(Icons.edit, color: Colors.blue),
                         onPressed: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      NoteScreen(true, index)));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NoteScreen(true, index),
+                            ),
+                          );
                         },
                       ),
                       IconButton(
@@ -74,8 +98,9 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 )
               : SizedBox(),
-          title: Text(noteList[index].getTitle()),
-          subtitle: hide ? Text("") : Text(noteList[index].getContent()),
+          title: Text(noteList[index].getTitle() ?? "GGHFG"),
+          subtitle:
+              hide ? Text(" g") : Text(noteList[index].getContent() ?? "gfu"),
           onTap: () {
             Navigator.push(
                 context,
@@ -85,6 +110,7 @@ class _ListScreenState extends State<ListScreen> {
           onLongPress: () {
             setState(() {
               shows[index] = !shows[index];
+              // print(noteList[index].title);
             });
           },
         ),
@@ -103,7 +129,17 @@ class _ListScreenState extends State<ListScreen> {
           FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: 'Add a new note',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NoteScreen(
+                    true,
+                    0,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

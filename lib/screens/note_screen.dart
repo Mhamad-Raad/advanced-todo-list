@@ -10,11 +10,12 @@ import 'package:midterm/models/mock_data.dart';
 class NoteScreen extends StatelessWidget {
   bool editable;
   int index;
-  String tempTitle, tempContent;
 
   NoteScreen(this.editable, this.index);
 
   Widget build(BuildContext context) {
+    String tempTitle = noteList[index].title,
+        tempContent = noteList[index].content;
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
@@ -29,6 +30,7 @@ class NoteScreen extends StatelessWidget {
               onPressed: () {
                 noteList[index].setTitle(tempTitle);
                 noteList[index].setContent(tempContent);
+                print(noteList[index].title);
                 Navigator.pop(context);
               }),
           IconButton(
@@ -41,41 +43,40 @@ class NoteScreen extends StatelessWidget {
               }),
         ],
       ),
-      body: editable
-          ? Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    initialValue: null,
-                    enabled: true,
-                    decoration: InputDecoration(
-                      hintText: 'Type the title here',
-                    ),
-                    onChanged: (value) {
-                      tempTitle = value;
-                    },
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                        enabled: true,
-                        initialValue: null,
-                        maxLines: null,
-                        expands: true,
-                        decoration: InputDecoration(
-                          hintText: 'Type the description',
-                        ),
-                        onChanged: (value) {
-                          tempContent = value;
-                        }),
-                  ),
-                ],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            TextFormField(
+              initialValue: noteList[index].title,
+              enabled: editable,
+              decoration: InputDecoration(
+                hintText: 'Type the title here',
               ),
-            )
-          : Container(),
+              onChanged: (value) {
+                tempTitle = value;
+              },
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: TextFormField(
+                enabled: editable,
+                initialValue: noteList[index].content,
+                maxLines: null,
+                expands: true,
+                decoration: InputDecoration(
+                  hintText: 'Type the description',
+                ),
+                onChanged: (value) {
+                  tempContent = value;
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
