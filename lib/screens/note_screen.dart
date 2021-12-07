@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 // import '../models/note.dart';
 
 class NoteScreen extends StatelessWidget {
+  bool editable;
+  int index;
+
+  NoteScreen(this.editable, this.index);
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:midterm/models/mock_data.dart';
 
+import 'note_screen.dart';
+
 // import 'note_screen.dart';
 // import '../models/note.dart';
 
@@ -16,6 +18,7 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   bool hide = false;
   List<bool> shows = [false, false, false, false];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +51,13 @@ class _ListScreenState extends State<ListScreen> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.edit, color: Colors.blue),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      NoteScreen(true, index)));
+                        },
                       ),
                       IconButton(
                         icon: Icon(
@@ -67,7 +76,12 @@ class _ListScreenState extends State<ListScreen> {
               : SizedBox(),
           title: Text(noteList[index].getTitle()),
           subtitle: hide ? Text("") : Text(noteList[index].getContent()),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NoteScreen(false, index)));
+          },
           onLongPress: () {
             setState(() {
               shows[index] = !shows[index];
