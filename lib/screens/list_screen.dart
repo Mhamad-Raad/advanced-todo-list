@@ -14,6 +14,7 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreenState extends State<ListScreen> {
   bool hide = false;
+  List<bool> shows = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,29 +39,35 @@ class _ListScreenState extends State<ListScreen> {
           color: Colors.blueGrey,
         ),
         itemBuilder: (context, index) => ListTile(
-          trailing: SizedBox(
-            width: 110.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.edit, color: Colors.blue),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.blue,
+          trailing: shows[index]
+              ? SizedBox(
+                  width: 110.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit, color: Colors.blue),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
+                )
+              : SizedBox(),
           title: Text('Note title'),
           subtitle: hide ? Text("") : Text('Note content'),
           onTap: () {},
-          onLongPress: () {},
+          onLongPress: () {
+            setState(() {
+              shows[index] = !shows[index];
+            });
+          },
         ),
       ),
       floatingActionButton: Row(
