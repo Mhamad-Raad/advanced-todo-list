@@ -16,4 +16,12 @@ class Note {
   String getContent() {
     return content;
   }
+
+  void setTitle(String t) {
+    title = t;
+  }
+
+  void setContent(String c) {
+    content = c;
+  }
 }
