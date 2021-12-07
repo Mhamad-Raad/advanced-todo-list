@@ -55,7 +55,11 @@ class _ListScreenState extends State<ListScreen> {
                           Icons.delete,
                           color: Colors.blue,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            noteList.removeAt(index);
+                          });
+                        },
                       ),
                     ],
                   ),
