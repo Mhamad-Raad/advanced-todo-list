@@ -37,8 +37,6 @@ class _ListScreenState extends State<ListScreen> {
         for (var i = 0; i < noteList.length; i++) {
           noteList[i].getTitle();
           noteList[i].getContent();
-          noteList.length;
-          noteList;
         }
       });
     });
@@ -63,6 +61,7 @@ class _ListScreenState extends State<ListScreen> {
         ],
       ),
       body: ListView.separated(
+        key: UniqueKey(),
         separatorBuilder: (context, index) => Divider(
           color: Colors.blueGrey,
         ),
@@ -102,10 +101,9 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 )
               : SizedBox(),
-          title: Text(noteList[index].getTitle() ?? "GGHFG"),
-          subtitle: hide
-              ? Text("null")
-              : Text(noteList[index].getContent() ?? "null"),
+          title: Text(noteList[index].getTitle() ?? "null"),
+          subtitle:
+              hide ? Text("") : Text(noteList[index].getContent() ?? "null"),
           onTap: () {
             Navigator.push(
                 context,
