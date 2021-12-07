@@ -103,8 +103,9 @@ class _ListScreenState extends State<ListScreen> {
                 )
               : SizedBox(),
           title: Text(noteList[index].getTitle() ?? "GGHFG"),
-          subtitle:
-              hide ? Text(" g") : Text(noteList[index].getContent() ?? "gfu"),
+          subtitle: hide
+              ? Text("null")
+              : Text(noteList[index].getContent() ?? "null"),
           onTap: () {
             Navigator.push(
                 context,

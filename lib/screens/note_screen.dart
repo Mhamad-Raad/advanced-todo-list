@@ -23,29 +23,36 @@ class NoteScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Container(),
         centerTitle: true,
-        title: Text('Note Screen App Bar Title'),
+        title: add
+            ? Text("Add Note")
+            : editable
+                ? Text('Edit Note')
+                : Text('View Note'),
         actions: [
-          IconButton(
-              icon: Icon(
-                Icons.check_circle,
-                size: 30,
-              ),
-              onPressed: () {
-                if (add) {
-                  noteList.add(Note(tempTitle, tempContent));
-                  print(noteList.length);
-                } else {
-                  noteList[index].setTitle(tempTitle);
-                  noteList[index].setContent(tempContent);
-                }
+          Visibility(
+            visible: editable,
+            child: IconButton(
+                icon: Icon(
+                  Icons.check_circle,
+                  size: 30,
+                ),
+                onPressed: () {
+                  if (add) {
+                    noteList.add(Note(tempTitle, tempContent));
+                    print(noteList.length);
+                  } else {
+                    noteList[index].setTitle(tempTitle);
+                    noteList[index].setContent(tempContent);
+                  }
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ListScreen(),
-                  ),
-                );
-              }),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListScreen(),
+                    ),
+                  );
+                }),
+          ),
           IconButton(
               icon: Icon(
                 Icons.cancel_sharp,
